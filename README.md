@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dỗ Em Yêu 💖</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      overflow: hidden;
+      height: 100vh;
+      background: linear-gradient(to top right, #ffdde1, #ee9ca7);
+      font-family: "Comic Sans MS", cursive;
+      text-align: center;
+    }
+
+    /* ----- Màn hình mật khẩu ----- */
+    #passwordScreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 1000;
+    }
+    #passwordInput {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      margin-top: 10px;
+    }
+    #enterBtn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: pink;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* ----- Nhạc nền ----- */
+    audio { display: none; }
+
+    /* ----- Hoa anh đào ----- */
+    .sakura {
+      position: fixed;
+      top: -50px;
+      font-size: 20px;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ----- Trái tim khi click ----- */
+    .heart {
+      position: fixed;
+      font-size: 20px;
+      color: red;
+      animation: fly 2s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes fly {
+      to {
+        transform: translateY(-150px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Màn hình nhập mật khẩu -->
+  <div id="passwordScreen">
+    <h2>💌 Nhập mật khẩu để vào tim anh 💌</h2>
+    <input type="password" id="passwordInput" placeholder="Nhập mật khẩu...">
+    <button id="enterBtn">Vào</button>
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="https://cdn.pixabay.com/audio/2023/04/07/audio_b0a9f91e7f.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1 style="margin-top: 50px; color:white; text-shadow:2px 2px 5px pink;">
+    💖 Anh xin lỗi vì đã làm em buồn 💖
+  </h1>
+  <p style="color:white; font-size:20px;">Mong em cười lại với anh 🌸</p>
+
+  <script>
+    // ===== Kiểm tra mật khẩu =====
+    const passwordScreen = document.getElementById("passwordScreen");
+    document.getElementById("enterBtn").onclick = () => {
+      const pw = document.getElementById("passwordInput").value;
+      if (pw === "iloveyou") {
+        passwordScreen.style.display = "none";
+        document.getElementById("bgMusic").play();
+      } else {
+        alert("Sai mật khẩu rồi 😢");
+      }
+    };
+
+    // ===== Hoa anh đào rơi =====
+    function createSakura() {
+      const sakura = document.createElement("div");
+      sakura.classList.add("sakura");
+      sakura.innerText = "🌸";
+      sakura.style.left = Math.random() * window.innerWidth + "px";
+      sakura.style.animationDuration = 5 + Math.random() * 5 + "s";
+      sakura.style.fontSize = 15 + Math.random() * 20 + "px";
+      document.body.appendChild(sakura);
+      setTimeout(() => sakura.remove(), 10000);
+    }
+    setInterval(createSakura, 500);
+
+    // ===== Trái tim khi click =====
+    document.addEventListener("click", (e) => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "❤️";
+      heart.style.left = e.pageX + "px";
+      heart.style.top = e.pageY + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    });
+  </script>
+</body>
+</html>
